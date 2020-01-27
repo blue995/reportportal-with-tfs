@@ -10,3 +10,7 @@
 	path = plugin-bts-tfs
 	url = https://github.com/blue995/plugin-bts-tfs.git
 	branch = rally-transformed-to-tfs
+[submodule "reportportal"]
+	path = reportportal
+	url = https://github.com/blue995/master-reportportal.git
+	branch = master
