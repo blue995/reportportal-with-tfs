@@ -1,0 +1,12 @@
+[submodule "service-api"]
+	path = service-api
+	url = https://github.com/blue995/service-api.git
+	branch = service-api-with-tfs
+[submodule "service-ui"]
+	path = service-ui
+	url = https://github.com/blue995/service-ui.git
+	branch = service-ui-with-tfs
+[submodule "plugin-bts-tfs"]
+	path = plugin-bts-tfs
+	url = https://github.com/blue995/plugin-bts-tfs.git
+	branch = rally-transformed-to-tfs

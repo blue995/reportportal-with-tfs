@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+DOCKER_USER=bluefu
+
+create_full_docker_tag() {
+    local docker_image="$1"
+    local docker_image_tag="$2"
+    echo "$DOCKER_USER/$docker_image:$docker_image_tag"
+}
+
+release_image() {
+    local docker_image="$1"
+    
+    local docker_full_tag=$(create_full_docker_tag "$1" "latest")
+    echo $docker_full_tag
+    docker push "$docker_full_tag"
+}
+
+# Login into docker hub
+docker login -u "$DOCKER_USER"
+
+# Release service-ui-with-tfs
+release_image "service-ui-with-tfs"
+# Release service-api-with-tfs
+release_image "service-api-with-tfs"
