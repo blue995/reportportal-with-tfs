@@ -2,11 +2,13 @@
 git submodule init
 git submodule update
 
-echo "Initialize service-api"
-./service-api/repo-management/init-repo.bash
+echo "Initialize plugin-bts-tfs"
+./plugin-bts-tfs/repo-management/init-repo.bash
 
 echo "Initialize service-ui"
 ./service-ui/repo-management/init-repo.bash
 
-echo "Initialize plugin-bts-tfs"
-./plugin-bts-tfs/repo-management/init-repo.bash
+echo "Initialize service-api"
+./service-api/repo-management/init-repo.bash
+git clone -b service-api-with-tfs https://github.com/blue995/service-api.git build/service-api
+./build/service-api/repo-management/init-repo.bash
