@@ -1,5 +1,8 @@
 #!/bin/bash
 
 ./service-ui/repo-management/custom-build bluefu/service-ui-with-tfs
-./service-api/repo-management/custom-build bluefu/service-api-with-tfs
+#./service-api/repo-management/custom-build bluefu/service-api-with-tfs
 ./plugin-bts-tfs/repo-management/custom-build
+
+echo
+echo "Skipped 'service-api' build, because this build currently fails if the repository is a submodule of another submodule."
