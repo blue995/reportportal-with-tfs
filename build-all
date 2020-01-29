@@ -6,6 +6,7 @@
 #./service-api/repo-management/custom-build bluefu/service-api-with-tfs
 CURDIR=$PWD
 cd ./build/service-api
+git checkout service-api-with-tfs
 git pull
 repo-management/custom-build bluefu/service-api-with-tfs
 cd $CURDIR
