@@ -3,15 +3,28 @@
 TAG=${1:-bluefu/service-api-with-tfs}
 VERSION=$2
 
+check_return() {
+    local $ret=$?
+    if [ $ret -ne 0 ]
+    then
+        exit $ret
+    fi
+}
+
 echo "Build API Service..."
 
 ## Skipped 'service-api' build, because this build currently fails if the repository is a submodule of another submodule.
 #./service-api/repo-management/custom-build bluefu/service-api-with-tfs
 CURDIR=$PWD
 cd ./build/service-api
+check_return
+
 git checkout service-api-with-tfs
+check_return
+
 git pull
 repo-management/custom-build $TAG $VERSION
+check_return
 cd $CURDIR
 
 echo "...done."

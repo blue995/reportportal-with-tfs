@@ -3,7 +3,16 @@
 TAG=${1:-bluefu/service-ui-with-tfs}
 VERSION=$2
 
+check_return() {
+    local $ret=$?
+    if [ $ret -ne 0 ]
+    then
+        exit $ret
+    fi
+}
+
 echo "Build UI Service..."
 ./service-ui/repo-management/custom-build $TAG $VERSION
+check_return
 echo "...done."
 echo

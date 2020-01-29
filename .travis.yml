@@ -10,7 +10,7 @@ stages:
 jobs:
   include:
     - stage: release
-      name: "Release API Service as Docker Images."
+      name: "Release API Service as Docker Image."
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest || true
@@ -21,8 +21,9 @@ jobs:
       script:
         - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest
         - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:$TRAVIS_TAG
+        
     - stage: release
-      name: "Release UI Service as Docker Images."
+      name: "Release UI Service as Docker Image."
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest || true
