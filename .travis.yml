@@ -4,13 +4,39 @@ services:
   - docker
 
 stages:
+  - name: test
+    if: type IN (push, pull_request)
+  - name: pre_release
+    if: type IN (push, pull_request) AND branch = master
   - name: release
     if: tag IS present
 
 jobs:
   include:
+    - stage: pre_release
+      name: "Release API Service as Docker Image. (Latest)"
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest || true
+        - git clone -b service-api-with-tfs https://github.com/blue995/service-api.git build/service-api
+        - ./build/service-api/repo-management/init-repo.bash
+      install:
+        - ./build-api $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG
+      script:
+        - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest
+        
+    - stage: pre_release
+      name: "Release UI Service as Docker Image. (Latest)"
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest || true
+      install:
+        - ./build-ui $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG
+      script:
+        - docker push $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest
+
     - stage: release
-      name: "Release API Service as Docker Image."
+      name: "Release API Service as Docker Image. (Official)"
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest || true
@@ -23,7 +49,7 @@ jobs:
         - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:$TRAVIS_TAG
         
     - stage: release
-      name: "Release UI Service as Docker Image."
+      name: "Release UI Service as Docker Image. (Official)"
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest || true
