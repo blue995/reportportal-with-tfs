@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Build TFS Plugin..."
+./plugin-bts-tfs/repo-management/custom-build
+echo "...done."
+echo

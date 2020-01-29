@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Build UI Service..."
+./service-ui/repo-management/custom-build bluefu/service-ui-with-tfs
+echo "...done."
+echo
