@@ -10,8 +10,9 @@ create_full_docker_tag() {
 
 release_image() {
     local docker_image="$1"
+    local docker_version="${2:-latest}"
     
-    local docker_full_tag=$(create_full_docker_tag "$1" "latest")
+    local docker_full_tag=$(create_full_docker_tag "$1" "$2")
     echo $docker_full_tag
     docker push "$docker_full_tag"
 }

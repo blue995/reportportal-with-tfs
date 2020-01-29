@@ -1,0 +1,25 @@
+dist: xenial
+language: minimal
+services:
+  - docker
+
+stages:
+  - name: release
+    if: tag IS present
+
+jobs:
+  include:
+    - stage: release
+      name: "Release current repository as Docker Images."
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest || true
+        - docker pull $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest || true
+      install:
+        - ./build-ui $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG $TRAVIS_TAG
+        - ./build-api $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG $TRAVIS_TAG
+      script:
+        - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest
+        - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:$TRAVIS_TAG
+        - docker push $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest
+        - docker push $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:$TRAVIS_TAG

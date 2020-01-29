@@ -1,6 +1,9 @@
 #!/bin/bash
 
+TAG=${1:-bluefu/service-ui-with-tfs}
+VERSION=$2
+
 echo "Build UI Service..."
-./service-ui/repo-management/custom-build bluefu/service-ui-with-tfs
+./service-ui/repo-management/custom-build $TAG $VERSION
 echo "...done."
 echo

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TAG=${1:-bluefu/service-api-with-tfs}
+VERSION=$2
 
 echo "Build API Service..."
 
@@ -9,7 +11,7 @@ CURDIR=$PWD
 cd ./build/service-api
 git checkout service-api-with-tfs
 git pull
-repo-management/custom-build bluefu/service-api-with-tfs
+repo-management/custom-build $TAG $VERSION
 cd $CURDIR
 
 echo "...done."
