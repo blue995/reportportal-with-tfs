@@ -7,7 +7,7 @@ stages:
   - name: test
     if: type IN (push, pull_request)
   - name: pre_release
-    if: type IN (push, pull_request) AND branch = master
+    if: type IN (push, pull_request) AND branch = master OR tag IS present
   - name: release
     if: tag IS present
 
@@ -45,7 +45,6 @@ jobs:
       install:
         - ./build-api $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG $TRAVIS_TAG
       script:
-        - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest
         - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:$TRAVIS_TAG
         
     - stage: release
@@ -56,6 +55,5 @@ jobs:
       install:
         - ./build-ui $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG $TRAVIS_TAG
       script:
-        - docker push $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:latest
         - docker push $DOCKER_USERNAME/$DOCKER_UI_IMAGE_TAG:$TRAVIS_TAG
     
