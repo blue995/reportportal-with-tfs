@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-DOCKER_USER=bluefu
+DOCKER_USER=$1
+VERSION=$2
 
 create_full_docker_tag() {
     local docker_image="$1"
@@ -22,5 +23,13 @@ docker login -u "$DOCKER_USER"
 
 # Release service-ui-with-tfs
 release_image "service-ui-with-tfs"
+if [ -e "$VERSION" ]
+then
+    release_image "service-ui-with-tfs" "$VERSION"
+fi
 # Release service-api-with-tfs
 release_image "service-api-with-tfs"
+if [ -e "$VERSION" ]
+then
+    release_image "service-api-with-tfs" "$VERSION"
+fi
