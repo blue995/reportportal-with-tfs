@@ -4,7 +4,7 @@ TAG=${1:-bluefu/service-api-with-tfs}
 VERSION=$2
 
 check_return() {
-    local $ret=$?
+    local ret=$?
     if [ $ret -ne 0 ]
     then
         exit $ret
