@@ -10,5 +10,5 @@ echo "Initialize service-ui"
 
 echo "Initialize service-api"
 ./service-api/repo-management/init-repo.bash
-git clone -b service-api-with-tfs https://github.com/blue995/service-api.git build/service-api
+git clone -b service-api-with-tfs https://github.com/blue995/service-api.git build/service-api --config core.autocrlf=input
 ./build/service-api/repo-management/init-repo.bash
