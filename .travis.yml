@@ -24,7 +24,6 @@ jobs:
         - ./build-api $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG
       script:
         - docker push $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest
-        - docker scan --accept-license $DOCKER_USERNAME/$DOCKER_API_IMAGE_TAG:latest
         
     - stage: pre_release
       name: "Release UI Service as Docker Image. (Latest)"
